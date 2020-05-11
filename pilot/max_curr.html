@@ -147,7 +147,7 @@
             <option value='66.7'>ZXD020 T102</option>
             <!--* 华为 *-->
             <option value='100'>R100030G1</option>
-        </select><br /><br />
+        </select><br /><br />       
         模块数量：<select id='cnt' onchange='calcMaxCur()' style="font-size: 20px;">
             <option>0</option>
             <option>1</option>
@@ -167,6 +167,7 @@
             <option>15</option>
             <option>16</option>
         </select><br /><br />
+        单个模块最大电流：<input type='text' id='sinCurr' value='0' style="font-size: 20px;" readonly><br /><br />
         最大输出电流：<input type='text' id='curr' value='0' style="font-size: 20px;" readonly>
     </div><br />
 
@@ -174,9 +175,9 @@
     <div id='footer'>版本：<u>V1.0</u></div>
     <script>
         function calcMaxCur() {
-            var myselect = document.getElementById('cnt');　　//获取select对象
-            var index = myselect.selectedIndex;　　　　　　　　　//获取被选中的索引
-            var cnt = myselect.options[index].value;　　　　　　//获取被选中的值    
+            var myselect = document.getElementById('cnt');
+            var index = myselect.selectedIndex;
+            var cnt = myselect.options[index].value;
             var cur = document.getElementById('type').value;
             var maxCur = cnt * cur;
             if (maxCur > 500) {
@@ -184,10 +185,9 @@
             }
             maxCur = ~maxCur;
             maxCur = ~maxCur;
+            document.getElementById('sinCurr').value = cur;
             document.getElementById('curr').value = maxCur;
-
         }
     </script>
 </body>
-
 </html>
