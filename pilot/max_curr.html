@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>最大电流计算</title>
+    <style>
+        #header a {
+            padding-left: 1%
+        }
+
+        #footer a {
+            padding-right: 1%
+        }
+
+        #footer {
+            text-align: center
+        }
+    </style>
+</head>
+
+<body onload='calcMaxCur()'>
+    <div id='header'>
+        模块型号：<select id='type' onchange='calcMaxCur()'>
+            <!--* 英飞源 *-->
+            <option value='35'>REG50040</option>
+            <option value='50'>REG50050</option>
+            <option value='25'>REG75030</option>
+            <option value='33'>REG75035</option>
+            <option value='37.5'>REG75040</option>
+            <option value='50'>REG75050</option>
+            <option value='60'>REG75060</option>
+            <!--* 优优 *-->
+            <option value='33'>UR50030-T-V</option>
+            <option value='22'>UR75020-T-H</option>
+            <!--* 中兴 *-->
+            <option value='40'>ZXD030 T501</option>
+            <option value='25'>ZXD020 T751</option>
+            <option value='37.5'>ZXD020 T751W</option>
+            <option value='45.45'>ZXD020 T751H</option>
+            <option value='33.4'>ZXD030 T751</option>
+            <option value='66.7'>ZXD020 T102</option>
+            <!--* 华为 *-->
+            <option value='100'>R100030G1</option>
+        </select><br/>
+        模块数量：
+        <select id='cnt' onchange='calcMaxCur()'>
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+        </select><br/>
+        最大电流：<input type='text' id='curr' value='0' readonly>
+    </div><br />
+
+    <hr />
+    <div id='footer'>版本：<u>V1.0</u></div>
+    <script>
+    function calcMaxCur()
+    {
+        var myselect = document.getElementById('cnt');　　//获取select对象
+        var index = myselect.selectedIndex;　　　　　　　　　//获取被选中的索引
+        var cnt = myselect.options[index].value;　　　　　　//获取被选中的值    
+        var cur = document.getElementById('type').value;
+        var maxCur = cnt * cur;
+        if (maxCur > 500) {
+            maxCur = 500;
+        }
+        maxCur = ~maxCur;
+        maxCur = ~maxCur;
+        document.getElementById('curr').value = maxCur;
+
+    }
+    function loadPic() { var d, e, f, g, h, a = new Date, b = a.getFullYear(), c = a.getMonth() + 1; 10 > c && (c = '0' + c), d = a.getDate(), 10 > d && (d = '0' + d), e = b + '-' + c + '-' + d, f = a.getHours(), f >= 23 ? f = '20' : f >= 17 ? f = '14' : f >= 11 ? f = '08' : f >= 5 ? f = '02' : (f = '20', g = chTime(e + '00', -4), e = g.substr(0, 4) + '-' + g.substr(4, 2) + '-' + g.substr(6, 2)), document.getElementById('hh').value = f, document.getElementById('date').value = e, h = chTime(e + f, -8), document.getElementById('pic').src = 'http://web.kma.go.kr/repositary/image/cht/img/up50_' + h + '.png' } function reloadPic() { var a = document.getElementById('date').value, b = document.getElementById('hh').value, c = chTime(a + b, -8), d = document.getElementById('cnt').value; document.getElementById('pic').src = 'http://web.kma.go.kr/repositary/image/cht/img/' + d + '_' + c + '.png' } function last_next(a) { var f, b = 0 > a ? -6 : 6, c = document.getElementById('date').value, d = document.getElementById('hh').value, e = chTime(c + d, b); document.getElementById('date').value = e.substr(0, 4) + '-' + e.substr(4, 2) + '-' + e.substr(6, 2), document.getElementById('hh').value = e.substr(8, 2), f = document.getElementById('cnt').value, e = chTime(c + d, b - 8), document.getElementById('pic').src = 'http://web.kma.go.kr/repositary/image/cht/img/' + f + '_' + e + '.png' } function chTime(a, b) { var c = parseInt(a.substr(0, 4)), d = parseInt(a.substr(5, 2)) - 1, e = parseInt(a.substr(8, 2)), f = parseInt(a.substr(10, 2)), g = new Date(c, d, e, f + b); return c = g.getFullYear(), d = g.getMonth() + 1, e = g.getDate(), f = g.getHours(), d = d >= 10 ? d : '0' + d, e = e >= 10 ? e : '0' + e, f = f >= 10 ? f : '0' + f, c + '' + d + e + f } function startPic() { reloadPic(), document.getElementById('run').style.display = 'none', document.getElementById('stop').style.display = 'inline', intPic = setInterval(function () { var a, b, c, d; return document.getElementById('run').href = '#', a = document.getElementById('date').value.split('-'), b = document.getElementById('hh').value, c = (new Date).getTime(), d = new Date(a[0], a[1] - 1, a[2], parseInt(b)).getTime(), 324e5 > c - d ? (document.getElementById('run').style.display = 'inline', document.getElementById('stop').style.display = 'none', window.clearInterval(intPic), void 0) : (last_next(1), void 0) }, 2e3) } function endPic() { document.getElementById('run').style.display = 'inline', document.getElementById('stop').style.display = 'none', clearInterval(intPic) } window.onload = loadPic</script>
+</body>
+
+</html>
