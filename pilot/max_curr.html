@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>最大电流计算</title>
+    <style>
+        #header a {
+            padding-left: 1%
+        }
+
+        #footer a {
+            padding-right: 1%
+        }
+
+        #footer {
+            text-align: center
+        }
+
+        .fancy-label {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .fancy-label label {
+            position: absolute;
+            top: 14px;
+            left: 7px;
+            padding: 0 15px;
+            -webkit-transition: top .5s, font-size .3s;
+            transition: top .5s, font-size .3s;
+        }
+
+        .fancy-label input {
+            height: 45px;
+            padding: 0 12px;
+        }
+
+        .fancy-label input:hover+label,
+        .fancy-label input:focus+label,
+        .fancy-label input:valid+label {
+            top: -9px;
+
+        }
+
+        label {
+            color: #000;
+            background: #fff;
+        }
+
+        input {
+            color: #000;
+            border: 2px solid #289afa;
+            background: #fff;
+            width: 240px;
+            outline: 0;
+        }
+
+        body>div {
+            padding: 1rem 0 0 1rem;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            outline: 0;
+            box-shadow: none;
+            border: 0 !important;
+            background: #2c3e50;
+            background-image: none;
+        }
+
+        .select {
+            position: relative;
+            display: block;
+            width: 40%;
+            height: 12%;
+            line-height: 3;
+            background: #2c3e50;
+            overflow: hidden;
+            border-radius: .25em;
+        }
+
+        select {
+            width: 40%;
+            height: 100%;
+            margin: 0;
+            padding: 0 0 0 .5em;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        .select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0 1em;
+            background: #34495e;
+            pointer-events: none;
+        }
+
+        .select:hover::after {
+            color: #f39c12;
+        }
+
+        .select::after {
+            -webkit-transition: .25s all ease;
+            -o-transition: .25s all ease;
+            transition: .25s all ease;
+        }
+
+        body>div {
+            margin: 1rem 0 0 1rem;
+        }
+    </style>
+</head>
+
+<body onload='calcMaxCur()'>
+    <div><h2>充电桩最大电流计算</h2></div> 
+    <div style="font-size: 45px;">
+        充电模块型号：<select id='type' onchange='calcMaxCur()' style="font-size: 45px;">
+            <!--* 英飞源 *-->
+            <option value='35'>REG50040</option>
+            <option value='50'>REG50050</option>
+            <option value='25'>REG75030</option>
+            <option value='33'>REG75035</option>
+            <option value='37.5'>REG75040</option>
+            <option value='50'>REG75050</option>
+            <option value='60'>REG75060</option>
+            <!--* 优优 *-->
+            <option value='33'>UR50030-T-V</option>
+            <option value='22'>UR75020-T-H</option>
+            <!--* 中兴 *-->
+            <option value='40'>ZXD030 T501</option>
+            <option value='25'>ZXD020 T751</option>
+            <option value='37.5'>ZXD020 T751W</option>
+            <option value='45.45'>ZXD020 T751H</option>
+            <option value='33.4'>ZXD030 T751</option>
+            <option value='66.7'>ZXD020 T102</option>
+            <!--* 华为 *-->
+            <option value='100'>R100030G1</option>
+        </select><br /><br />       
+        充电模块数量：<select id='cnt' onchange='calcMaxCur()' style="font-size: 45px;">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+        </select><br /><br />
+        单个模块最大电流：<input type='text' id='sinCurr' value='0' style="font-size: 45px;" readonly><br /><br />
+        最大输出电流：<input type='text' id='curr' value='0' style="font-size: 45px;" readonly>
+    </div><br />
+
+    <hr />
+    <div id='footer'>版本：<u>V1.0</u></div>
+    <script>
+        function calcMaxCur() {
+            var myselect = document.getElementById('cnt');
+            var index = myselect.selectedIndex;
+            var cnt = myselect.options[index].value;
+            var cur = document.getElementById('type').value;
+            var maxCur = cnt * cur;
+            if (maxCur > 500) {
+                maxCur = 500;
+            }
+            maxCur = ~maxCur;
+            maxCur = ~maxCur;
+            document.getElementById('sinCurr').value = cur;
+            document.getElementById('curr').value = maxCur;
+        }
+    </script>
+</body>
+</html>
