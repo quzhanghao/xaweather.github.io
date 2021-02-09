@@ -137,6 +137,7 @@
         充电模块厂家：<select id='type' onchange='calcMaxCur()' style="font-size: 45px;">
             <option value='infy'>英飞源</option>
             <option value='ur'>优优绿能</option>
+            <option value='ur'>分体桩统一状态码</option>
         </select><br /><br />
         手动输入模块状态：<input type='text' id='statText' value='0' style="font-size: 45px;" maxlength="8"
             oninput="calcMaxCur()"><br /><br />
@@ -215,9 +216,52 @@
             }
             else if (modType == 'ur') {
                 document.getElementById('modStat').value = '';
-                
+                if ((intModStat >> 21) & 1) {
+                    document.getElementById('modStat').value += '副边故障;';
+                }
+                if ((intModStat >> 20) & 1) {
+                    document.getElementById('modStat').value += '原边故障;';
+                }
+                if ((intModStat >> 18) & 1) {
+                    document.getElementById('modStat').value += '原副边通信故障;';
+                }
+                if ((intModStat >> 17) & 1) {
+                    document.getElementById('modStat').value += 'DC过温保护2;';
+                }
+                if ((intModStat >> 16) & 1) {
+                    document.getElementById('modStat').value += 'DC过温保护1;';
+                }
+                if ((intModStat >> 15) & 1) {
+                    document.getElementById('modStat').value += 'PFC过温保护2;';
+                }
+                if ((intModStat >> 14) & 1) {
+                    document.getElementById('modStat').value += 'PFC过温保护1;';
+                }
+                if ((intModStat >> 12) & 1) {
+                    document.getElementById('modStat').value += '环境过温保护;';
+                }
+                if ((intModStat >> 9) & 1) {
+                    document.getElementById('modStat').value += '风扇故障;';
+                }
+                if ((intModStat >> 8) & 1) {
+                    document.getElementById('modStat').value += '直流输出欠压;';
+                }
+                if ((intModStat >> 7) & 1) {
+                    document.getElementById('modStat').value += '直流输出过压关机;';
+                }
+                if ((intModStat >> 6) & 1) {
+                    document.getElementById('modStat').value += '直流输出过压;';
+                }
+                if ((intModStat >> 2) & 1) {
+                    document.getElementById('modStat').value += '交流输入过压脱离;';
+                }
+                if ((intModStat >> 1) & 1) {
+                    document.getElementById('modStat').value += '交流输入欠压;';
+                }
+                if ((intModStat >> 0) & 1) {
+                    document.getElementById('modStat').value += '交流输入过压;';
+                }
             }
-
         }
     </script>
 </body>
