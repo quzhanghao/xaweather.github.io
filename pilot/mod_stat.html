@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>充电模块状态查询</title>
+    <style>
+        #header a {
+            padding-left: 1%
+        }
+
+        #footer a {
+            padding-right: 1%
+        }
+
+        #footer {
+            text-align: center
+        }
+
+        .fancy-label {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .fancy-label label {
+            position: absolute;
+            top: 14px;
+            left: 7px;
+            padding: 0 15px;
+            -webkit-transition: top .5s, font-size .3s;
+            transition: top .5s, font-size .3s;
+        }
+
+        .fancy-label input {
+            height: 45px;
+            padding: 0 12px;
+        }
+
+        .fancy-label input:hover+label,
+        .fancy-label input:focus+label,
+        .fancy-label input:valid+label {
+            top: -9px;
+
+        }
+
+        label {
+            color: #000;
+            background: #fff;
+        }
+
+        input {
+            color: #000;
+            border: 2px solid #289afa;
+            background: #fff;
+            width: 260px;
+            outline: 0;
+        }
+
+        body>div {
+            padding: 1rem 0 0 1rem;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            outline: 0;
+            box-shadow: none;
+            border: 0 !important;
+            background: #2c3e50;
+            background-image: none;
+        }
+
+        .select {
+            position: relative;
+            display: block;
+            width: 40%;
+            height: 12%;
+            line-height: 3;
+            background: #2c3e50;
+            overflow: hidden;
+            border-radius: .25em;
+        }
+
+        select {
+            width: 40%;
+            height: 100%;
+            margin: 0;
+            padding: 0 0 0 .5em;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        .select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0 1em;
+            background: #34495e;
+            pointer-events: none;
+        }
+
+        .select:hover::after {
+            color: #f39c12;
+        }
+
+        .select::after {
+            -webkit-transition: .25s all ease;
+            -o-transition: .25s all ease;
+            transition: .25s all ease;
+        }
+
+        .textarea-inherit {
+            width: 100%;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        body>div {
+            margin: 1rem 0 0 1rem;
+        }
+    </style>
+</head>
+
+<body onload='calcMaxCur()'>
+    <div>
+        <h2>充电模块状态查询</h2>
+    </div>
+    <div style="font-size: 45px;">
+        充电模块厂家：<select id='type' onchange='calcMaxCur()' style="font-size: 45px;">
+            <option value='infy'>英飞源</option>
+            <option value='ur'>优优绿能</option>
+        </select><br /><br />
+        手动输入模块状态：<input type='text' id='statText' value='0' style="font-size: 45px;" maxlength="8"
+            oninput="calcMaxCur()"><br /><br />
+        查询结果：<textarea class='textarea-inherit' id='modStat' value='0' style="font-size: 40px;" readonly></textarea>
+    </div><br />
+
+    <hr />
+    <div id='footer'>版本：<u>V1.0</u></div>
+    <script>
+        function calcMaxCur() {
+            var myselect = document.getElementById('type');
+            var index = myselect.selectedIndex;
+            var modType = myselect.options[index].value;
+            var modStat = document.getElementById('statText').value;
+            if (modStat.length < 8) { document.getElementById('modStat').value = ''; return; }
+            var intModStat = parseInt(modStat, 16);
+            if (modType == 'infy') {
+                document.getElementById('modStat').value = '';
+                if ((intModStat >> 30) & 1) {
+                    document.getElementById('modStat').value += '输入过压;';
+                }
+                if ((intModStat >> 29) & 1) {
+                    document.getElementById('modStat').value += '输入欠压;';
+                }
+                if ((intModStat >> 28) & 1) {
+                    document.getElementById('modStat').value += '三相不平衡;';
+                }
+                if ((intModStat >> 27) & 1) {
+                    document.getElementById('modStat').value += '输入缺相;';
+                }
+                if ((intModStat >> 26) & 1) {
+                    document.getElementById('modStat').value += '模块不均流;';
+                }
+                if ((intModStat >> 25) & 1) {
+                    document.getElementById('modStat').value += '模块ID重复;';
+                }
+                if ((intModStat >> 24) & 1) {
+                    document.getElementById('modStat').value += '模块限功率状态;';
+                }
+                if ((intModStat >> 23) & 1) {
+                    document.getElementById('modStat').value += '模块通信中断;';
+                }
+                if ((intModStat >> 21) & 1) {
+                    document.getElementById('modStat').value += '输出过压;';
+                }
+                if ((intModStat >> 20) & 1) {
+                    document.getElementById('modStat').value += '过温;';
+                }
+                if ((intModStat >> 19) & 1) {
+                    document.getElementById('modStat').value += '风扇故障;';
+                }
+                if ((intModStat >> 18) & 1) {
+                    document.getElementById('modStat').value += '模块保护告警;';
+                }
+                if ((intModStat >> 17) & 1) {
+                    document.getElementById('modStat').value += '模块故障告警;';
+                }
+                if ((intModStat >> 13) & 1) {
+                    document.getElementById('modStat').value += '模块放电异常;';
+                }
+                if ((intModStat >> 12) & 1) {
+                    document.getElementById('modStat').value += '模块休眠;';
+                }
+                if ((intModStat >> 11) & 1) {
+                    document.getElementById('modStat').value += 'PFC运行异常;';
+                }
+                if ((intModStat >> 10) & 1) {
+                    document.getElementById('modStat').value += '模块内部通信故障;';
+                }
+                if ((intModStat >> 9) & 1) {
+                    document.getElementById('modStat').value += '模块输出欠压;';
+                }
+                if ((intModStat >> 8) & 1) {
+                    document.getElementById('modStat').value += '输出短路;';
+                }
+            }
+            else if (modType == 'ur') {
+                document.getElementById('modStat').value = '';
+                
+            }
+
+        }
+    </script>
+</body>
+
+</html>
