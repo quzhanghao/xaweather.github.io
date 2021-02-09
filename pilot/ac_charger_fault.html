@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>交流充电桩故障查询</title>
+    <style>
+        #header a {
+            padding-left: 1%
+        }
+
+        #footer a {
+            padding-right: 1%
+        }
+
+        #footer {
+            text-align: center
+        }
+
+        .fancy-label {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .fancy-label label {
+            position: absolute;
+            top: 14px;
+            left: 7px;
+            padding: 0 15px;
+            -webkit-transition: top .5s, font-size .3s;
+            transition: top .5s, font-size .3s;
+        }
+
+        .fancy-label input {
+            height: 45px;
+            padding: 0 12px;
+        }
+
+        .fancy-label input:hover+label,
+        .fancy-label input:focus+label,
+        .fancy-label input:valid+label {
+            top: -9px;
+
+        }
+
+        label {
+            color: #000;
+            background: #fff;
+        }
+
+        input {
+            color: #000;
+            border: 2px solid #289afa;
+            background: #fff;
+            width: 260px;
+            outline: 0;
+        }
+
+        body>div {
+            padding: 1rem 0 0 1rem;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            outline: 0;
+            box-shadow: none;
+            border: 0 !important;
+            background: #2c3e50;
+            background-image: none;
+        }
+
+        .select {
+            position: relative;
+            display: block;
+            width: 40%;
+            height: 12%;
+            line-height: 3;
+            background: #2c3e50;
+            overflow: hidden;
+            border-radius: .25em;
+        }
+
+        select {
+            width: 40%;
+            height: 100%;
+            margin: 0;
+            padding: 0 0 0 .5em;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        .select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0 1em;
+            background: #34495e;
+            pointer-events: none;
+        }
+
+        .select:hover::after {
+            color: #f39c12;
+        }
+
+        .select::after {
+            -webkit-transition: .25s all ease;
+            -o-transition: .25s all ease;
+            transition: .25s all ease;
+        }
+
+        .textarea-inherit {
+            width: 100%;
+            overflow: auto;
+            word-break: break-all;
+        }
+
+        body>div {
+            margin: 1rem 0 0 1rem;
+        }
+    </style>
+</head>
+
+<body onload='calcErrCode()'>
+    <div>
+        <h2>交流充电桩故障查询</h2>
+    </div>
+    <div style="font-size: 45px;">
+        充电桩型号选择：<select id='type' onchange='calcErrCode()' style="font-size: 45px;">
+            <option value='2108'>PEVC2108</option>
+            <option value='2107'>PEVC2107</option>
+            <option value='2106'>PEVC2106</option>
+            <option value='2105'>PEVC2105</option>
+            <option value='2101'>PEVC2101</option>
+        </select><br /><br />
+        手动输入故障码：<input type='number' id='errText' min='0' max='99' oninput="calcErrCode()"
+            style="font-size: 45px;"><br /><br />
+        查询结果：<textarea class='textarea-inherit' id='errCode' value='0' style=" font-size: 40px;" readonly></textarea>
+    </div><br />
+    <hr />
+    <div id='footer'>版本：<u>V1.0</u></div>
+    <script>
+        function calcErrCode() {
+            var myselect = document.getElementById('type');
+            var index = myselect.selectedIndex;
+            var modType = myselect.options[index].value;
+            var errCode = document.getElementById('errText').value;
+            if (errCode < 0) { document.getElementById('errText').value = 0; errCode = 0; }
+            if (errCode > 100) { document.getElementById('errText').value = 100; errCode = 100; }
+            var intModStat = parseInt(errCode, 16);
+            if (modType == '2108') {
+                document.getElementById('errCode').value = '';
+            }
+            else if (modType == '2107') {
+                document.getElementById('errCode').value = '';
+                if (errCode == 1) {
+                    document.getElementById('errCode').value = 'RTC故障';
+                }
+                if (errCode == 2) {
+                    document.getElementById('errCode').value = '读卡器故障';
+                }
+                if (errCode == 3) {
+                    document.getElementById('errCode').value = '防雷故障';
+                }
+                if (errCode == 4) {
+                    document.getElementById('errCode').value = '急停故障';
+                }
+                if (errCode == 5) {
+                    document.getElementById('errCode').value = '输入过压故障';
+                }
+                if (errCode == 6) {
+                    document.getElementById('errCode').value = '输入欠压故障';
+                }
+                if (errCode == 7) {
+                    document.getElementById('errCode').value = '铁电故障';
+                }
+                if (errCode == 8) {
+                    document.getElementById('errCode').value = 'FLASH故障';
+                }
+                if (errCode == 9) {
+                    document.getElementById('errCode').value = '接地故障';
+                }
+                if (errCode == 10) {
+                    document.getElementById('errCode').value = '倾斜故障';
+                }
+                if (errCode == 11) {
+                    document.getElementById('errCode').value = '计量表连接故障';
+                }
+                if (errCode == 12) {
+                    document.getElementById('errCode').value = '继电器粘连/拒动故障';
+                }
+                if (errCode == 13) {
+                    document.getElementById('errCode').value = '继电器过温故障';
+                }
+            }
+            else if (modType == '2106') {
+                document.getElementById('errCode').value = '2106不支持查询';
+            }
+            else if (modType == '2105') {
+                document.getElementById('errCode').value = '';
+                if (errCode == 1) {
+                    document.getElementById('errCode').value = 'RTC故障';
+                }
+                if (errCode == 2) {
+                    document.getElementById('errCode').value = '读卡器故障';
+                }
+                if (errCode == 3) {
+                    document.getElementById('errCode').value = '防雷故障';
+                }
+                if (errCode == 4) {
+                    document.getElementById('errCode').value = '急停故障';
+                }
+                if (errCode == 5) {
+                    document.getElementById('errCode').value = '输入过压故障';
+                }
+                if (errCode == 6) {
+                    document.getElementById('errCode').value = '输入欠压故障';
+                }
+                if (errCode == 7) {
+                    document.getElementById('errCode').value = '铁电故障';
+                }
+                if (errCode == 8) {
+                    document.getElementById('errCode').value = 'FLASH故障';
+                }
+                if (errCode == 11) {
+                    document.getElementById('errCode').value = '计量表连接故障';
+                }
+            }
+            else if (modType == '2101') {
+                document.getElementById('errCode').value = '';
+                if (errCode == 2) {
+                    document.getElementById('errCode').value = '读卡器故障';
+                }
+                if (errCode == 3) {
+                    document.getElementById('errCode').value = '计量表连接故障';
+                }
+                if (errCode == 8) {
+                    document.getElementById('errCode').value = 'RTC故障';
+                }
+                if (errCode == 18) {
+                    document.getElementById('errCode').value = '急停故障';
+                }
+                if (errCode == 19) {
+                    document.getElementById('errCode').value = '防雷故障';
+                }
+                if (errCode == 22) {
+                    document.getElementById('errCode').value = '输入过压故障';
+                }
+                if (errCode == 23) {
+                    document.getElementById('errCode').value = '输入欠压故障';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
