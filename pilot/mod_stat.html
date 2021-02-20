@@ -280,7 +280,70 @@
             }
             else
             {
-                document.getElementById('modStat').value = '其他模块暂不支持';   
+                document.getElementById('modStat').value = '';
+                if ((intModStat >> 0) & 1) {
+                    document.getElementById('modStat').value += '模块通讯中断;';
+                }
+                if ((intModStat >> 1) & 1) {
+                    document.getElementById('modStat').value += '模块输出短路;';
+                }
+                if ((intModStat >> 2) & 1) {
+                    document.getElementById('modStat').value += '模块输出欠压;';
+                }
+                if ((intModStat >> 3) & 1) {
+                    document.getElementById('modStat').value += '模块输出过压;';
+                }
+                if ((intModStat >> 4) & 1) {
+                    document.getElementById('modStat').value += '模块输入缺相;';
+                }
+                if ((intModStat >> 5) & 1) {
+                    document.getElementById('modStat').value += '模块输入不平衡;';
+                }
+                if ((intModStat >> 6) & 1) {
+                    document.getElementById('modStat').value += '模块输入欠压;';
+                }
+                if ((intModStat >> 7) & 1) {
+                    document.getElementById('modStat').value += '模块输入过压;';
+                }
+                if ((intModStat >> 8) & 1) {
+                    document.getElementById('modStat').value += '模块过温故障;';
+                }
+                if ((intModStat >> 9) & 1) {
+                    document.getElementById('modStat').value += '模块内部通信故障;';
+                }
+                if ((intModStat >> 10) & 1) {
+                    document.getElementById('modStat').value += '模块休眠;';
+                }
+                if ((intModStat >> 11) & 1) {
+                    document.getElementById('modStat').value += '模块放电异常;';
+                }
+                if ((intModStat >> 12) & 1) {
+                    document.getElementById('modStat').value += 'DCDC工作异常;';
+                }
+                if ((intModStat >> 13) & 1) {
+                    document.getElementById('modStat').value += 'PFC运行异常;';
+                }
+                if ((intModStat >> 14) & 1) {
+                    document.getElementById('modStat').value += '模块故障告警;';
+                }
+                if ((intModStat >> 15) & 1) {
+                    document.getElementById('modStat').value += '模块保护告警;';
+                }
+                if ((intModStat >> 16) & 1) {
+                    document.getElementById('modStat').value += '模块风扇故障;';
+                }
+                if ((intModStat >> 17) & 1) {
+                    document.getElementById('modStat').value += '模块限功率状态;';
+                }
+                if ((intModStat >> 18) & 1) {
+                    document.getElementById('modStat').value += '模块ID重复;';
+                }
+                if ((intModStat >> 19) & 1) {
+                    document.getElementById('modStat').value += '模块不均流;';
+                }
+                if ((intModStat >> 20) & 1) {
+                    document.getElementById('modStat').value += '模块无法开机;';
+                }
             }
         }
     </script>
