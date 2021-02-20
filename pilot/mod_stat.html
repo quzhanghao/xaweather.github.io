@@ -156,6 +156,9 @@
             var intModStat = parseInt(modStat, 16);
             if (modType == 'infy') {
                 document.getElementById('modStat').value = '';
+                if ((intModStat >> 31) & 1) {
+                    document.getElementById('modStat').value += 'PFC侧关机;';
+                }
                 if ((intModStat >> 30) & 1) {
                     document.getElementById('modStat').value += '输入过压;';
                 }
@@ -180,6 +183,9 @@
                 if ((intModStat >> 23) & 1) {
                     document.getElementById('modStat').value += '模块通信中断;';
                 }
+                if ((intModStat >> 22) & 1) {
+                    document.getElementById('modStat').value += 'WALK-IN使能;';
+                }
                 if ((intModStat >> 21) & 1) {
                     document.getElementById('modStat').value += '输出过压;';
                 }
@@ -194,6 +200,9 @@
                 }
                 if ((intModStat >> 17) & 1) {
                     document.getElementById('modStat').value += '模块故障告警;';
+                }
+                if ((intModStat >> 16) & 1) {
+                    document.getElementById('modStat').value += 'DC侧关机;';
                 }
                 if ((intModStat >> 13) & 1) {
                     document.getElementById('modStat').value += '模块放电异常;';
@@ -216,50 +225,57 @@
             }
             else if (modType == 'ur') {
                 document.getElementById('modStat').value = '';
-                if ((intModStat >> 21) & 1) {
-                    document.getElementById('modStat').value += '副边故障;';
+                if ((intModStat >> 1) & 1) {
+                    document.getElementById('modStat').value += '未开机;';
                 }
-                if ((intModStat >> 20) & 1) {
-                    document.getElementById('modStat').value += '原边故障;';
-                }
-                if ((intModStat >> 18) & 1) {
-                    document.getElementById('modStat').value += '原副边通信故障;';
-                }
-                if ((intModStat >> 17) & 1) {
-                    document.getElementById('modStat').value += 'DC过温保护2;';
-                }
-                if ((intModStat >> 16) & 1) {
-                    document.getElementById('modStat').value += 'DC过温保护1;';
-                }
-                if ((intModStat >> 15) & 1) {
-                    document.getElementById('modStat').value += 'PFC过温保护2;';
-                }
-                if ((intModStat >> 14) & 1) {
-                    document.getElementById('modStat').value += 'PFC过温保护1;';
-                }
-                if ((intModStat >> 12) & 1) {
-                    document.getElementById('modStat').value += '环境过温保护;';
-                }
-                if ((intModStat >> 9) & 1) {
-                    document.getElementById('modStat').value += '风扇故障;';
+                else
+                {
+                    document.getElementById('modStat').value += '已开机;';   
                 }
                 if ((intModStat >> 8) & 1) {
+                    document.getElementById('modStat').value += 'DC过温保护1;';
+                }
+                if ((intModStat >> 9) & 1) {
+                    document.getElementById('modStat').value += 'DC过温保护2;';
+                }
+                if ((intModStat >> 10) & 1) {
+                    document.getElementById('modStat').value += 'PFC与DCDC通讯故障;';
+                }
+                if ((intModStat >> 12) & 1) {
+                    document.getElementById('modStat').value += 'PFC故障;';
+                }
+                if ((intModStat >> 13) & 1) {
+                    document.getElementById('modStat').value += 'DCDC故障;';
+                }
+                if ((intModStat >> 16) & 1) {
                     document.getElementById('modStat').value += '直流输出欠压;';
                 }
-                if ((intModStat >> 7) & 1) {
-                    document.getElementById('modStat').value += '直流输出过压关机;';
+                if ((intModStat >> 17) & 1) {
+                    document.getElementById('modStat').value += '风扇故障;';
                 }
-                if ((intModStat >> 6) & 1) {
-                    document.getElementById('modStat').value += '直流输出过压;';
+                if ((intModStat >> 20) & 1) {
+                    document.getElementById('modStat').value += '环境过温;';
                 }
-                if ((intModStat >> 2) & 1) {
-                    document.getElementById('modStat').value += '交流输入过压脱离;';
+                if ((intModStat >> 22) & 1) {
+                    document.getElementById('modStat').value += 'PFC过温保护1;';
                 }
-                if ((intModStat >> 1) & 1) {
+                if ((intModStat >> 23) & 1) {
+                    document.getElementById('modStat').value += 'PFC过温保护2;';
+                }
+                if ((intModStat >> 24) & 1) {
+                    document.getElementById('modStat').value += '交流输入过压;';
+                }
+                if ((intModStat >> 25) & 1) {
                     document.getElementById('modStat').value += '交流输入欠压;';
                 }
-                if ((intModStat >> 0) & 1) {
-                    document.getElementById('modStat').value += '交流输入过压;';
+                if ((intModStat >> 26) & 1) {
+                    document.getElementById('modStat').value += '交流过压关机;';
+                }
+                if ((intModStat >> 30) & 1) {
+                    document.getElementById('modStat').value += '直流输出过压;';
+                }
+                if ((intModStat >> 31) & 1) {
+                    document.getElementById('modStat').value += '直流过压关机;';
                 }
             }
             else
