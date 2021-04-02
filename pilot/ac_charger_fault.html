@@ -140,6 +140,7 @@
             <option value='2106'>PEVC2106</option>
             <option value='2105'>PEVC2105</option>
             <option value='2101'>PEVC2101</option>
+			<option value='2101'>PEVC3401</option>
         </select><br /><br />
         手动输入故障码：<input type='number' id='errText' min='0' max='99' oninput="calcErrCode()"
             style="font-size: 45px;"><br /><br />
@@ -256,6 +257,45 @@
                 }
                 if (errCode == 23) {
                     document.getElementById('errCode').value = '输入欠压故障';
+                }
+            }
+			else if (modType == '3401') {
+                document.getElementById('errCode').value = '';
+				if (errCode == 1) {
+                    document.getElementById('errCode').value = 'RTC故障';
+                }
+                if (errCode == 2) {
+                    document.getElementById('errCode').value = '读卡器故障';
+                }
+                if (errCode == 3) {
+                    document.getElementById('errCode').value = '防雷故障';
+                }
+				if (errCode == 4) {
+                    document.getElementById('errCode').value = '急停故障';
+                }
+                if (errCode == 5) {
+                    document.getElementById('errCode').value = '输入过压故障';
+                }
+                if (errCode == 6) {
+                    document.getElementById('errCode').value = '输入欠压故障';
+                }
+                if (errCode == 7) {
+                    document.getElementById('errCode').value = '铁电故障';
+                }
+                if (errCode == 8) {
+                    document.getElementById('errCode').value = 'FLASH故障';
+                }
+                if (errCode == 10) {
+                    document.getElementById('errCode').value = '倾斜故障';
+                }
+                if (errCode == 11) {
+                    document.getElementById('errCode').value = '计量表连接故障';
+                }
+                if (errCode == 13) {
+                    document.getElementById('errCode').value = '继电器过温故障';
+                }
+				if (errCode == 14) {
+                    document.getElementById('errCode').value = '模块通信故障';
                 }
             }
         }
