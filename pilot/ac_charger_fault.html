@@ -131,7 +131,7 @@
 
 <body onload='calcErrCode()'>
     <div>
-        <h2>交流充电桩故障查询</h2>
+        <h2>充电桩故障查询</h2>
     </div>
     <div style="font-size: 45px;">
         充电桩型号选择：<select id='type' onchange='calcErrCode()' style="font-size: 45px;">
@@ -140,7 +140,7 @@
             <option value='2106'>PEVC2106</option>
             <option value='2105'>PEVC2105</option>
             <option value='2101'>PEVC2101</option>
-			<option value='2101'>PEVC3401</option>
+			<option value='3401'>PEVC3401</option>
         </select><br /><br />
         手动输入故障码：<input type='number' id='errText' min='0' max='99' oninput="calcErrCode()"
             style="font-size: 45px;"><br /><br />
